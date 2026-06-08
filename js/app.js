@@ -315,15 +315,14 @@ function buildCalGrid() {
 
 // ===== 地図 =====
 function renderMap() {
-  const center = [35.67645, 139.88069];
-  const map = L.map("map").setView(center, 18);
+  const map = L.map("map");
 
   L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
     attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
     maxZoom: 19,
   }).addTo(map);
 
-  SPOTS.forEach((spot) => {
+  const markers = SPOTS.map((spot) => {
     const icon = L.divIcon({
       className: "",
       html: `<div style="
@@ -341,10 +340,13 @@ function renderMap() {
       popupAnchor: [0, -34],
     });
 
-    L.marker([spot.lat, spot.lng], { icon })
+    return L.marker([spot.lat, spot.lng], { icon })
       .addTo(map)
       .bindPopup(`<strong>${spot.name}</strong>`);
   });
+
+  const group = L.featureGroup(markers);
+  map.fitBounds(group.getBounds().pad(0.25));
 }
 
 // ===== ヘルパー =====
