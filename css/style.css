@@ -353,6 +353,13 @@ body {
 }
 .toast.hidden { display: none; }
 
+/* 地図 */
+#map {
+  height: 280px;
+  border-radius: var(--radius);
+  z-index: 0;
+}
+
 /* フッター */
 .site-footer {
   text-align: center;

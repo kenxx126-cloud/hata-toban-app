@@ -6,6 +6,25 @@
  * 空のままにするとモックデータで動作します。
  */
 
+// ===== 当番地点の定義 =====
+// ※緯度経度はGoogle Mapsで確認して微調整してください
+const SPOTS = [
+  {
+    name: "正門",
+    lat:  35.67548,
+    lng:  139.87910,
+    desc: "学校正面入口（宮前通り側）",
+    color: "#2e7d32",
+  },
+  {
+    name: "東門",
+    lat:  35.67571,
+    lng:  139.87980,
+    desc: "東側通用門（住宅街側）",
+    color: "#1565c0",
+  },
+];
+
 // ===== 設定 =====
 const GAS_URL = "";
 
@@ -62,6 +81,7 @@ window.addEventListener("DOMContentLoaded", async () => {
   allData = await fetchData();
   renderThisWeek();
   renderCalendar();
+  renderMap();
   setupEventListeners();
 });
 
@@ -281,6 +301,40 @@ function buildCalGrid() {
     grid.appendChild(cell);
   }
   return grid;
+}
+
+// ===== 地図 =====
+function renderMap() {
+  const center = [35.67560, 139.87945];
+  const map = L.map("map").setView(center, 18);
+
+  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+    maxZoom: 19,
+  }).addTo(map);
+
+  SPOTS.forEach((spot) => {
+    const icon = L.divIcon({
+      className: "",
+      html: `<div style="
+        background:${spot.color};
+        color:#fff;
+        border-radius:50% 50% 50% 0;
+        transform:rotate(-45deg);
+        width:32px;height:32px;
+        display:flex;align-items:center;justify-content:center;
+        font-size:11px;font-weight:700;
+        box-shadow:0 2px 6px rgba(0,0,0,.3);
+      "><span style="transform:rotate(45deg)">${spot.name}</span></div>`,
+      iconSize: [32, 32],
+      iconAnchor: [16, 32],
+      popupAnchor: [0, -34],
+    });
+
+    L.marker([spot.lat, spot.lng], { icon })
+      .addTo(map)
+      .bindPopup(`<strong>${spot.name}</strong><br>${spot.desc}`);
+  });
 }
 
 // ===== ヘルパー =====

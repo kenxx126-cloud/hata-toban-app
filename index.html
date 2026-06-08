@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>旗当番管理 – 二之江小学校PTA</title>
   <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 </head>
 <body>
   <header class="site-header">
@@ -52,6 +53,12 @@
       <div id="calendar" class="calendar"></div>
     </section>
 
+    <!-- 地図 -->
+    <section class="card">
+      <h2 class="section-title">当番地点マップ</h2>
+      <div id="map"></div>
+    </section>
+
   </main>
 
   <footer class="site-footer">
@@ -92,6 +99,7 @@
   <!-- 完了トースト -->
   <div id="toast" class="toast hidden">申請を送信しました ✓</div>
 
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="js/app.js"></script>
 </body>
 </html>
