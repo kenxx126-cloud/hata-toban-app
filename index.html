@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>旗当番管理 – ○○小学校PTA</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <h1>🚩 旗当番管理</h1>
+    <p class="subtitle">○○小学校 PTA</p>
+  </header>
+
+  <main class="container">
+
+    <!-- 今週の当番 -->
+    <section class="card" id="this-week-section">
+      <h2 class="section-title">今週の当番</h2>
+      <div id="this-week-list" class="toban-list">
+        <p class="loading">読み込み中…</p>
+      </div>
+    </section>
+
+    <!-- マイ当番 -->
+    <section class="card">
+      <h2 class="section-title">自分の当番を確認・調整する</h2>
+      <div class="search-row">
+        <input type="text" id="search-name" placeholder="苗字（例：田中）" aria-label="苗字" />
+        <select id="search-class" aria-label="クラス">
+          <option value="">クラスを選ぶ</option>
+          <option>1年1組</option><option>1年2組</option>
+          <option>2年1組</option><option>2年2組</option>
+          <option>3年1組</option><option>3年2組</option>
+          <option>4年1組</option><option>4年2組</option>
+          <option>5年1組</option><option>5年2組</option>
+          <option>6年1組</option><option>6年2組</option>
+        </select>
+        <button id="search-btn">確認</button>
+      </div>
+      <div id="search-result" class="toban-list" aria-live="polite"></div>
+    </section>
+
+    <!-- 月別カレンダー -->
+    <section class="card">
+      <h2 class="section-title">当番表（月別）</h2>
+      <div class="month-nav">
+        <button id="prev-month" aria-label="前の月">&#8249;</button>
+        <span id="month-label"></span>
+        <button id="next-month" aria-label="次の月">&#8250;</button>
+      </div>
+      <div id="calendar" class="calendar"></div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>データはGoogleスプレッドシートから取得しています。</p>
+  </footer>
+
+  <!-- 申請モーダル -->
+  <div id="modal-overlay" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal">
+      <h3 id="modal-title">当番の調整を申請する</h3>
+      <p id="modal-target-date" class="modal-date"></p>
+
+      <div class="modal-section">
+        <p class="modal-label">申請の種類</p>
+        <div class="radio-group">
+          <label><input type="radio" name="req-type" value="absence" checked /> 欠席（代わりを探してほしい）</label>
+          <label><input type="radio" name="req-type" value="swap" /> 日程を変えたい</label>
+        </div>
+      </div>
+
+      <div class="modal-section" id="swap-section">
+        <p class="modal-label">変更希望日（任意）</p>
+        <input type="date" id="swap-date" />
+      </div>
+
+      <div class="modal-section">
+        <p class="modal-label">メモ（任意）</p>
+        <textarea id="req-memo" rows="2" placeholder="例：出張のため、6/20以降希望"></textarea>
+      </div>
+
+      <div class="modal-actions">
+        <button id="modal-cancel" class="btn-secondary">キャンセル</button>
+        <button id="modal-submit" class="btn-primary">申請する</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 完了トースト -->
+  <div id="toast" class="toast hidden">申請を送信しました ✓</div>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
