@@ -10,18 +10,28 @@
 // ※緯度経度はGoogle Mapsで確認して微調整してください
 const SPOTS = [
   {
-    name: "正門",
-    lat:  35.67548,
-    lng:  139.87910,
-    desc: "学校正面入口（宮前通り側）",
+    name: "丸金前",
+    lat:  35.67751675993982,
+    lng:  139.8812595709351,
     color: "#2e7d32",
   },
   {
-    name: "東門",
-    lat:  35.67571,
-    lng:  139.87980,
-    desc: "東側通用門（住宅街側）",
+    name: "二之江神社",
+    lat:  35.67563704979277,
+    lng:  139.88012863130427,
+    color: "#c62828",
+  },
+  {
+    name: "二之江第三小",
+    lat:  35.67493043603786,
+    lng:  139.87914094688867,
     color: "#1565c0",
+  },
+  {
+    name: "古川親水公園トイレ",
+    lat:  35.67787445938014,
+    lng:  139.8832234602802,
+    color: "#e65100",
   },
 ];
 
@@ -305,7 +315,7 @@ function buildCalGrid() {
 
 // ===== 地図 =====
 function renderMap() {
-  const center = [35.67560, 139.87945];
+  const center = [35.67645, 139.88069];
   const map = L.map("map").setView(center, 18);
 
   L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
@@ -333,7 +343,7 @@ function renderMap() {
 
     L.marker([spot.lat, spot.lng], { icon })
       .addTo(map)
-      .bindPopup(`<strong>${spot.name}</strong><br>${spot.desc}`);
+      .bindPopup(`<strong>${spot.name}</strong>`);
   });
 }
 
